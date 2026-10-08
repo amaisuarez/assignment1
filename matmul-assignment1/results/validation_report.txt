@@ -1,0 +1,73 @@
+== Exact cases (must match exactly) ==
+  [PASS] python 2x2 hand-computed
+  [PASS] java   2x2 hand-computed
+  [PASS] c      2x2 hand-computed
+  [PASS] python 1x1
+  [PASS] java   1x1
+  [PASS] c      1x1
+  [PASS] python A x I (n=3)
+  [PASS] java   A x I (n=3)
+  [PASS] c      A x I (n=3)
+  [PASS] python I x B (n=3)
+  [PASS] java   I x B (n=3)
+  [PASS] c      I x B (n=3)
+  [PASS] python A x 0 (n=3)
+  [PASS] java   A x 0 (n=3)
+  [PASS] c      A x 0 (n=3)
+  [PASS] python small integers (n=3)
+  [PASS] java   small integers (n=3)
+  [PASS] c      small integers (n=3)
+  [PASS] python A x I (n=8)
+  [PASS] java   A x I (n=8)
+  [PASS] c      A x I (n=8)
+  [PASS] python I x B (n=8)
+  [PASS] java   I x B (n=8)
+  [PASS] c      I x B (n=8)
+  [PASS] python A x 0 (n=8)
+  [PASS] java   A x 0 (n=8)
+  [PASS] c      A x 0 (n=8)
+  [PASS] python small integers (n=8)
+  [PASS] java   small integers (n=8)
+  [PASS] c      small integers (n=8)
+  [PASS] python A x I (n=17)
+  [PASS] java   A x I (n=17)
+  [PASS] c      A x I (n=17)
+  [PASS] python I x B (n=17)
+  [PASS] java   I x B (n=17)
+  [PASS] c      I x B (n=17)
+  [PASS] python A x 0 (n=17)
+  [PASS] java   A x 0 (n=17)
+  [PASS] c      A x 0 (n=17)
+  [PASS] python small integers (n=17)
+  [PASS] java   small integers (n=17)
+  [PASS] c      small integers (n=17)
+== Random cases vs NumPy (componentwise bound 2*gamma_n*|A||B|) ==
+  [PASS] python n=   2  max|err|=0.000e+00  max(err/bound)=0.000
+  [PASS] java   n=   2  max|err|=0.000e+00  max(err/bound)=0.000
+  [PASS] c      n=   2  max|err|=0.000e+00  max(err/bound)=0.000
+         bitwise identical across languages: True
+  [PASS] python n=   5  max|err|=2.220e-16  max(err/bound)=0.130
+  [PASS] java   n=   5  max|err|=2.220e-16  max(err/bound)=0.130
+  [PASS] c      n=   5  max|err|=2.220e-16  max(err/bound)=0.130
+         bitwise identical across languages: True
+  [PASS] python n=  16  max|err|=8.882e-16  max(err/bound)=0.079
+  [PASS] java   n=  16  max|err|=8.882e-16  max(err/bound)=0.079
+  [PASS] c      n=  16  max|err|=8.882e-16  max(err/bound)=0.079
+         bitwise identical across languages: True
+  [PASS] python n=  33  max|err|=1.776e-15  max(err/bound)=0.027
+  [PASS] java   n=  33  max|err|=1.776e-15  max(err/bound)=0.027
+  [PASS] c      n=  33  max|err|=1.776e-15  max(err/bound)=0.027
+         bitwise identical across languages: True
+  [PASS] python n=  64  max|err|=2.665e-15  max(err/bound)=0.011
+  [PASS] java   n=  64  max|err|=2.665e-15  max(err/bound)=0.011
+  [PASS] c      n=  64  max|err|=2.665e-15  max(err/bound)=0.011
+         bitwise identical across languages: True
+  [PASS] python n= 100  max|err|=5.329e-15  max(err/bound)=0.009
+  [PASS] java   n= 100  max|err|=5.329e-15  max(err/bound)=0.009
+  [PASS] c      n= 100  max|err|=5.329e-15  max(err/bound)=0.009
+         bitwise identical across languages: True
+  [PASS] python n= 128  max|err|=7.105e-15  max(err/bound)=0.007
+  [PASS] java   n= 128  max|err|=7.105e-15  max(err/bound)=0.007
+  [PASS] c      n= 128  max|err|=7.105e-15  max(err/bound)=0.007
+         bitwise identical across languages: True
+== ALL TESTS PASSED ==
