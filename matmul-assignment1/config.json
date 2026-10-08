@@ -1,0 +1,16 @@
+{
+  "description": "Assignment 1 main study: i-j-k triple loop, float64, single thread",
+  "seed": 20262027,
+  "sizes": [16, 32, 64, 128, 192, 256, 384, 512, 768, 1024, 1536, 2048],
+  "methods": ["python", "java", "c"],
+  "repetitions": 5,
+  "warmups": {"python": 1, "java": 3, "c": 1},
+  "batch_target_inner_iterations": 20000000,
+  "per_repetition_budget_s": 60,
+  "process_startup_allowance_s": 30,
+  "memory_budget_bytes": 4000000000,
+  "bytes_per_element_estimate": {"python": 40, "java": 8, "c": 8},
+  "c_flags": ["-O2", "-std=c11", "-ffp-contract=off"],
+  "java_opts": ["-XX:+UseSerialGC", "-Xms256m", "-Xmx4g"],
+  "pin_to_cpu": null
+}
