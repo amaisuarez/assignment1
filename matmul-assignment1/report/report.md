@@ -339,7 +339,7 @@ recent computer the absolute times would be lower and larger sizes would be feas
 absolute values and the size limits reported here are specific to this laptop. The relative
 behaviour (cubic operation count, increasing memory cost, Java converging to C, and the
 interpretation overhead of Python) is what this study supports, and confirming it on other
-hardware remains open.
+hardware remains open. In conclusion with better conditions it will be better for the user to save time and find the solution in the best way possible. 
 
 Open questions are:
 
