@@ -341,7 +341,7 @@ behaviour (cubic operation count, increasing memory cost, Java converging to C, 
 interpretation overhead of Python) is what this study supports, and confirming it on other
 hardware remains open. In conclusion with better conditions it will be better for the user to save time and find the solution in the best way possible. 
 
-Open questions are:
+Next:
 
 * how much of the large-n cost comes from cache conflicts, cache capacity and TLB misses;
   this could be tested with hardware counters, or with the unit-stride i-k-j order and
