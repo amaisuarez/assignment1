@@ -328,6 +328,19 @@ straightforward implementations on this machine.
 * Memory grows as n² in all three, with about 8, 17 and 40 bytes per element for C, Java
   and Python respectively, and was never the binding constraint.
 
+The development of the study was also shaped by the machine itself. My personal laptop is
+fairly old: a 2015-generation, 15 W dual-core processor with a 3 MB last-level cache and
+8 GB of DDR3 memory. It struggles with the dense, long-running executions this experiment
+requires. A single repetition took about 40 s for C and Java at n = 1536 and about 23 s for
+Python at n = 512. The full study took about 40 minutes, and the larger sizes (Python at
+n = 768, C and Java at n = 2048) exceeded the 60 s budget per repetition. The small caches
+also explain why the cost per iteration increases already at moderate sizes. On a more
+recent computer the absolute times would be lower and larger sizes would be feasible, so the
+absolute values and the size limits reported here are specific to this laptop. The relative
+behaviour (cubic operation count, increasing memory cost, Java converging to C, and the
+interpretation overhead of Python) is what this study supports, and confirming it on other
+hardware remains open.
+
 Open questions are:
 
 * how much of the large-n cost comes from cache conflicts, cache capacity and TLB misses;
@@ -337,12 +350,13 @@ Open questions are:
 
 # Use of generative AI
 
-Claude (Anthropic) was used to help plan the experimental design, to write the
-implementations, benchmarking and analysis scripts, and to draft the text of this report
-from my measurements. I built and ran all programs, the correctness tests and the benchmark
-on my own computer. All numbers in this report come from those runs, recorded in the
-repository. I reviewed the code and the text, and I checked that each reference exists and
-supports the statement where it is cited.
+I used Claude (Anthropic) throughout this assignment: to help with the design of the
+experiment, to explain the topic so I could learn it, to help me develop the code (it
+generated the first versions of the three implementations and of the benchmarking and
+analysis scripts), and to draft the report from my results. I ran all the experiments on my
+own computer, fixed the problems that came up when running them on macOS, and reviewed the
+code and the text. Every number here comes from those runs, and I can explain and defend
+the conclusions.
 
 # References
 
