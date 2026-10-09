@@ -24,6 +24,9 @@ import numpy as np  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 FIT_MIN_N = 128
+# Size regimes for a piecewise exponent fit (inclusive bounds), chosen from the
+# normalised-cost plot: small (inputs fit in cache), intermediate, large.
+FIT_RANGES = [(16, 192), (256, 768), (1024, 4096)]
 STYLE = {"python": ("tab:blue", "o"), "java": ("tab:orange", "s"), "c": ("tab:green", "^")}
 LABEL = {"python": "Python", "java": "Java", "c": "C"}
 
@@ -123,6 +126,55 @@ def main():
     if fits:
         (tables / "exponent_fit.md").write_text(md_table(fits, list(fits[0].keys())))
 
+    # ---- piecewise exponent fit ------------------------------------------
+    piece = []
+    for m in methods:
+        row = {"Method": LABEL[m]}
+        for lo, hi in FIT_RANGES:
+            pts = [(s["n"], s["median_s"]) for s in summary
+                   if s["method"] == m and lo <= s["n"] <= hi]
+            key = f"n {lo}–{hi if hi < 4096 else 'max'}"
+            if len(pts) >= 2:
+                b = np.polyfit(np.log([p[0] for p in pts]), np.log([p[1] for p in pts]), 1)[0]
+                row[key] = f"{b:.2f} ({pts[0][0]}–{pts[-1][0]}, {len(pts)} pts)"
+            else:
+                row[key] = "–"
+        piece.append(row)
+    (tables / "exponent_piecewise.md").write_text(md_table(piece, list(piece[0].keys())))
+
+    # ---- warm-up effect (first warm-up vs median of measured) ---------------
+    warm = defaultdict(list)
+    for r in raw:
+        if r["kind"] == "warmup" and r["status"] == "ok":
+            warm[(r["method"], int(r["n"]))].append(float(r["time_per_mult_s"]))
+    wrows = []
+    for m in methods:
+        for n in sizes:
+            if warm.get((m, n)) and (m, n) in by:
+                med = by[(m, n)]["median_s"]
+                wrows.append({"Method": LABEL[m], "n": n,
+                              "first warm-up / median": f"{warm[(m, n)][0] / med:.2f}",
+                              "last warm-up / median": f"{warm[(m, n)][-1] / med:.2f}"})
+    if wrows:
+        (tables / "warmup_effect.md").write_text(md_table(wrows, list(wrows[0].keys())))
+
+    # ---- repetitions completed before a timeout (not used in statistics) ----
+    part = defaultdict(list)
+    for r in raw:
+        if r["status"] == "timeout":
+            part[(r["method"], int(r["n"]))].append((r["kind"], float(r["time_per_mult_s"])))
+    prow = []
+    for (m, n), xs in sorted(part.items()):
+        meas = [t for k, t in xs if k == "measured"]
+        prow.append({"Method": LABEL[m], "n": n, "warm-ups done": sum(k == "warmup" for k, _ in xs),
+                     "measured reps done": len(meas),
+                     "time per completed rep [s]": ", ".join(f"{t:.1f}" for t in meas) or "–"})
+    if prow:
+        (tables / "timeout_partial.md").write_text(
+            "Repetitions completed before the process limit was reached. They exceed the "
+            "declared 60 s per-repetition budget and are excluded from all statistics.\n\n"
+            + md_table(prow, list(prow[0].keys())))
+
     # ---- limits / statuses --------------------------------------------------
     limits = []
     for m in methods:
@@ -217,6 +269,9 @@ def main():
     print((tables / "summary.md").read_text())
     print((tables / "exponent_fit.md").read_text() if fits else "")
     print((tables / "limits.md").read_text())
+    for extra in ("exponent_piecewise.md", "warmup_effect.md", "timeout_partial.md"):
+        if (tables / extra).exists():
+            print((tables / extra).read_text())
     print(f"Tables -> {tables.relative_to(ROOT)}  Figures -> {figs.relative_to(ROOT)}")
 
 
