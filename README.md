@@ -2,9 +2,9 @@
 
 **Big Data – Individual Assignment 1** · Amai Suárez Navarro · Grado en Ciencia e Ingeniería de Datos (ULPGC), 2026-2027
 
-This repo has everything behind my first Big Data assignment. I wrote the same basic matrix
-multiplication (the classic three nested loops) in Python, Java and C, and measured how time
-and memory change as the matrices grow.
+This repo has everything behind my first Big Data assignment: the same basic matrix
+multiplication (the classic three nested loops) in Python, Java and C, and the scripts I used
+to measure how time and memory change as the matrices grow.
 
 The question I wanted to answer:
 
@@ -27,7 +27,8 @@ All numbers come from my laptop, an Intel Core i5-5350U MacBook Air with 8 GB of
 - **The growth isn't a clean n³.** The algorithm always does n³ operations, but each
   operation gets more expensive as the matrices stop fitting in the CPU caches. In C each
   inner iteration goes from about 0.7 ns to about 11 ns. That's why the fitted exponent
-  comes out close to 4 over the whole range, but close to 3 inside each range of sizes.
+  comes out close to 4 from n = 128 to 1536, while for small matrices (n ≤ 192) it stays
+  close to 3.
 - **Memory** was never the problem: C uses about 8 bytes per element, Java about 17
   (plus ~36 MB for the JVM), and Python about 40 because every number is a separate object.
 
@@ -104,7 +105,7 @@ python3 scripts/run_benchmarks.py --config config_quick.json
 
 **4. The real study**
 
-This takes a while (around 40–60 minutes on my laptop). Keep the computer plugged in and
+This takes a while (about 40 minutes on my laptop). Keep the computer plugged in and
 don't use it meanwhile, otherwise the measurements get noisy. On a Mac, `caffeinate` stops it
 from going to sleep:
 
@@ -164,7 +165,9 @@ Settings that stayed fixed:
 
 ## Limitations
 
-Everything was measured on one laptop. I couldn't control Turbo Boost or pin the process to
+Everything was measured on one laptop, and a fairly old one (a 2015 dual-core processor with
+8 GB of RAM), so the absolute times and the largest sizes that finished are specific to it. I
+couldn't control Turbo Boost or pin the process to
 one core (macOS doesn't allow it). The memory figure includes the runtime of each language
 (JVM, Python interpreter), so it isn't exactly the same kind of number for all three. The
 results describe these three simple implementations on this machine; they're not a general
@@ -174,5 +177,7 @@ claim about which language is faster.
 
 ## Use of AI
 
-I used Claude (Anthropic) to help with the design of the experiment, and some explanations about the topic just for me to learn about it. I ran all the
+I used Claude (Anthropic) to help with the design of the experiment, to explain the topic so
+I could learn it, to generate the first versions of the code and scripts, and to draft the
+report from my results. The details are in the "Use of generative AI" section of the report. I ran all the
 experiments on my own computer, and every number here comes from those runs.
